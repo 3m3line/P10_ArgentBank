@@ -5,8 +5,8 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './containers/Navbar';
+import Footer from './containers/Footer';
 
 const App = () => {
   return (
