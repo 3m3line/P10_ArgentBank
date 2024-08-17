@@ -1,11 +1,27 @@
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import AccountCard from '../components/AccountCard';
 import Button from '../components/Button';
+import { updateUser } from '../actions/authActions';
 
 function User() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+
+  // Supposez que vous récupérez les informations de l'utilisateur depuis une API
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await fetchUserDataFromAPI(); // Remplacez par votre fonction de récupération
+      dispatch(updateUser(userData));
+    };
+
+    fetchUserData();
+  }, [dispatch]);
+
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
+        <h1>Welcome back<br />{user.firstName} {user.lastName}!</h1>
         <Button text="Edit Name" className="edit-button" />
       </div>
       <h2 className="sr-only">Accounts</h2>
