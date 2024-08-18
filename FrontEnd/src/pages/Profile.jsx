@@ -2,22 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountCard from '../components/AccountCard';
 import Button from '../components/Button';
-import { updateUser } from '../actions/authActions';
 
-function User() {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-
-  // Supposez que vous récupérez les informations de l'utilisateur depuis une API
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const userData = await fetchUserDataFromAPI(); // Remplacez par votre fonction de récupération
-      dispatch(updateUser(userData));
-    };
-
-    fetchUserData();
-  }, [dispatch]);
-
+function Profile() {
   return (
     <main className="main bg-dark">
       <div className="header">
@@ -47,4 +33,4 @@ function User() {
   );
 }
 
-export default User;
+export default Profile;

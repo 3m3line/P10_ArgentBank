@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FieldDiv from '../components/FieldDiv';
 import Button from '../components/Button';
+import { login } from '../redux/actions/authActions';
 
 const FormSignIn = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { token, loading, error } = useSelector((state) => state.auth);
 
   // Définir l'état initial des champs du formulaire
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
     rememberMe: false,
   });
@@ -27,17 +31,25 @@ const FormSignIn = () => {
     e.preventDefault();
     // Ici, vous pouvez traiter les données du formulaire, comme les valider ou envoyer une requête
     console.log('Form Data Submitted:', formData);
-    navigate('/user');
+    const { email, password } = formData;
+    dispatch(login(email, password));
   };
+
+  //si la connexion est un succès
+  useEffect(() => {
+    if (token) {
+      navigate('/profile');
+    }
+  }, [token, navigate]);
 
   return (
     <form onSubmit={handleSignIn}>
       <FieldDiv 
         label="Username" 
-        type="text" 
-        id="username" 
-        name="username"
-        value={formData.username}
+        type="email" 
+        id="email" 
+        name="email"
+        value={formData.email}
         onChange={handleChange}
       />
       <FieldDiv 
@@ -61,7 +73,7 @@ const FormSignIn = () => {
       <Button 
         text="Sign In" 
         className="sign-in-button" 
-        type="submit" // Changed to type="submit" to work with the form
+        type="submit" 
       />
     </form>
   );
