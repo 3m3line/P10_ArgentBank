@@ -20,16 +20,28 @@ export const login = (email, password) => async (dispatch) => {
       body: JSON.stringify({ email, password }),
     });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
+    console.log('Response:', response);
 
-    const data = await response.json();
-    const { token } = data;
-    dispatch(loginSuccess(token));
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Received data:', data);
+
+      const token = data.body.token;
+      sessionStorage.setItem('authToken', token);
+      
+      dispatch(loginSuccess(data.token));
+
+    }
+    else {
+      const errorData = await response.json();
+      console.log('error:', erreur);
+      dispatch(loginFailure(errorData.message || 'Login failed'));
+    }
   } catch (error) {
+    console.error('Network error:', error);
+
+    // Dispatch failure action
     dispatch(loginFailure(error.message));
   }
 };
-
   

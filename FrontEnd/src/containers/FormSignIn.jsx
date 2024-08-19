@@ -37,6 +37,7 @@ const FormSignIn = () => {
 
   //si la connexion est un succès
   useEffect(() => {
+    console.log('Token in component:', token);
     if (token) {
       navigate('/profile');
     }
