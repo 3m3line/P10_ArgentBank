@@ -29,7 +29,6 @@ const FormSignIn = () => {
   // Fonction pour gérer la soumission du formulaire
   const handleSignIn = (e) => {
     e.preventDefault();
-    // Ici, vous pouvez traiter les données du formulaire, comme les valider ou envoyer une requête
     console.log('Form Data Submitted:', formData);
     const { email, password } = formData;
     dispatch(login(email, password));

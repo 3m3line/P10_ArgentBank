@@ -29,7 +29,7 @@ export const login = (email, password) => async (dispatch) => {
       const token = data.body.token;
       sessionStorage.setItem('authToken', token);
       
-      dispatch(loginSuccess(data.token));
+      dispatch(loginSuccess(token));
 
     }
     else {
