@@ -12,13 +12,14 @@ export const fetchUser = () => async (dispatch, getState) => {
   dispatch(fetchUserRequest());
 
   const token = getState().auth.token;
+  console.log('token:', token);
 
   try {
     const response = await fetch(`${API_URL}/user/profile`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Accept': '*/*',
-        'Authorization': `Bearer ${token}`,  // Utiliser le token stocké
+        'Authorization': `Bearer ${token.token}`,  // Utiliser le token stocké
       },
     });
 
