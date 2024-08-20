@@ -1,17 +1,18 @@
-const API_URL = 'http://localhost:3001/api/v1/user/login';
+// const API_URL = 'http://localhost:3001/api/v1/user/login';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export const loginRequest = () => ({ type: LOGIN_REQUEST });
-export const loginSuccess = (token) => ({ type: LOGIN_SUCCESS, payload: token });
+export const loginSuccess = (token, user) => ({ type: LOGIN_SUCCESS, payload: {token, user} });
 export const loginFailure = (error) => ({ type: LOGIN_FAILURE, payload: error });
 
 export const login = (email, password) => async (dispatch) => {
   dispatch(loginRequest());
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,6 +29,8 @@ export const login = (email, password) => async (dispatch) => {
 
       const token = data.body.token;
       sessionStorage.setItem('authToken', token);
+
+      const user = 
       
       dispatch(loginSuccess(token));
 

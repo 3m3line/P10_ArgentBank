@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import FieldDiv from '../components/FieldDiv';
 import Button from '../components/Button';
 import { login } from '../redux/actions/authActions';
+import { fetchUser } from '../redux/actions/userInfoActions';
 
 const FormSignIn = () => {
   const dispatch = useDispatch();
@@ -38,9 +39,10 @@ const FormSignIn = () => {
   useEffect(() => {
     console.log('Token in component:', token);
     if (token) {
+      dispatch(fetchUser());
       navigate('/profile');
     }
-  }, [token, navigate]);
+  }, [token, dispatch, navigate]);
 
   return (
     <form onSubmit={handleSignIn}>

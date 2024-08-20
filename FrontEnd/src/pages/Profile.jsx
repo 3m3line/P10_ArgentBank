@@ -4,6 +4,11 @@ import AccountCard from '../components/AccountCard';
 import Button from '../components/Button';
 
 function Profile() {
+  const user = useSelector((state) => state.auth.user);
+
+  if (!user) {
+    return <p>Loading...</p>;
+  }
   return (
     <main className="main bg-dark">
       <div className="header">
