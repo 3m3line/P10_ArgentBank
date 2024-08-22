@@ -1,4 +1,3 @@
-// const API_URL = 'http://localhost:3001/api/v1/user/login';
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -30,8 +29,6 @@ export const login = (email, password) => async (dispatch) => {
 
       const token = data.body.token;
       sessionStorage.setItem('authToken', token);
-
-      const user = 
       
       dispatch(loginSuccess(token));
 
@@ -50,7 +47,8 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => {
-  sessionStorage.removeItem('authToken')
+  sessionStorage.removeItem('authToken');
+  window.location.href = '/';
   return {
     type: LOGOUT,
   };
