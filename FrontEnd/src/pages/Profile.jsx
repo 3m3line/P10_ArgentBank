@@ -1,19 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountCard from '../components/AccountCard';
 import Button from '../components/Button';
+import { updateUser } from '../redux/actions/updateUserActions';
 
 function Profile() {
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const [isEditing, setIsEditing] = useState(false);
+  const [newName, setNewName] = useState(user?.firstName || '');
 
   if (!user) {
     return <p>Loading...</p>;
   }
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleChange = (event) => {
+    setNewName(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(updateUser(newName));
+    setIsEditing(false); // ferme le formulaire après submission
+  };
+
   return (
     <main className="main bg-dark">
       <div className="header">
         <h1>Welcome back<br />{user.firstName} {user.lastName}!</h1>
-        <Button text="Edit Name" className="edit-button" />
+        {isEditing ? (
+          <form onSubmit={handleSubmit} className="edit-form">
+            <div className="form-group">
+            <label htmlFor="newName">User name:</label>
+            <input
+              id="newName"
+              type="text"
+              value={newName}
+              onChange={handleChange}
+              placeholder={user.userName}
+              required
+            />
+            </div>
+            <div className="form-group">
+              <label htmlFor="firstName">First Name:</label>
+              <p id="firstName" className="form-control">{user.firstName}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="lastName">Last Name:</label>
+              <p id="lastName" className="form-control">{user.lastName}</p>
+            </div>
+            <button type="submit">Save</button>
+            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+          </form>
+        ) : (
+          <Button text="Edit Name" className="edit-button" onClick={handleEditClick} />
+        )}
       </div>
       <h2 className="sr-only">Accounts</h2>
       <AccountCard
