@@ -4,6 +4,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
 
 export const loginRequest = () => ({ type: LOGIN_REQUEST });
 export const loginSuccess = (token, user) => ({ type: LOGIN_SUCCESS, payload: {token, user} });
@@ -46,5 +47,12 @@ export const login = (email, password) => async (dispatch) => {
     // Dispatch failure action
     dispatch(loginFailure(error.message));
   }
+};
+
+export const logout = () => {
+  sessionStorage.removeItem('authToken')
+  return {
+    type: LOGOUT,
+  };
 };
   

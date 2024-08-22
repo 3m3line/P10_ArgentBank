@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/authActions';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions/authActions';
 import {FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE} from '../actions/userInfoActions';
 
 const initialState = {
@@ -24,6 +24,8 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_FAILURE:
     case FETCH_USER_FAILURE:
       return { ...state, loading: false, error: action.payload };
+    case LOGOUT:
+      return { ...state, user: null, token: null };
     default:
       return state;
   }
