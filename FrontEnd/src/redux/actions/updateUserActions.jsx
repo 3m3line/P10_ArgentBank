@@ -14,7 +14,7 @@ export const updateUser = (userName) => async (dispatch, getState) => {
   const token = getState().auth.token; 
 
   try {
-    const response = await fetch(`${API_URL}/user`, {
+    const response = await fetch(`${API_URL}/user/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

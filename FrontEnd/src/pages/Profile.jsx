@@ -25,7 +25,13 @@ function Profile() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(updateUser(newName));
-    setIsEditing(false); // ferme le formulaire après submission
+    setIsEditing(false); // Ferme le formulaire après submission
+    setNewName(''); // Réinitialise le champ
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setNewName(''); // Réinitialise le champ
   };
 
   return (
@@ -54,7 +60,7 @@ function Profile() {
               <p id="lastName" className="form-control">{user.lastName}</p>
             </div>
             <button type="submit">Save</button>
-            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+            <button type="button" onClick={handleCancel}>Cancel</button>
           </form>
         ) : (
           <Button text="Edit Name" className="edit-button" onClick={handleEditClick} />

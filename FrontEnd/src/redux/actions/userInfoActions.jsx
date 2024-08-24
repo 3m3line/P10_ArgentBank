@@ -19,7 +19,7 @@ export const fetchUser = () => async (dispatch, getState) => {
       method: 'POST',
       headers: {
         'Accept': '*/*',
-        'Authorization': `Bearer ${token.token}`,  // Utiliser le token stocké
+        'Authorization': `Bearer ${token.token}`, 
       },
     });
 
