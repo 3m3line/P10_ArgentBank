@@ -206,6 +206,50 @@ body, #root {
   margin-top: 1rem;
 }
 
+.edit-form{
+  margin-top: 6%;
+}
+
+.form-group{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 0;
+}
+
+#newName{
+  padding: 4px;
+  margin: 0;
+  border-radius: 3px;
+  border: transparent;
+  width: 20%;
+  text-align: left;
+  font-size: initial;
+  background-color: white;
+}
+
+.form-control{
+  background: #b3b3b3;
+  color: #757575;
+  padding: 4px;
+  margin: 0;
+  border-radius: 3px;
+  border: transparent;
+  width: 20%;
+  text-align: left;
+}
+
+.form-btn{
+  background-color: #00bc77;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+  border: transparent;
+  padding: 10px 40px;
+  margin: 2rem 0.3rem 0;
+}
+
 .footer {
   display: flex;
   justify-content: center;

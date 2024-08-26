@@ -9,7 +9,7 @@ function Profile() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
-  const [newName, setNewName] = useState(user?.firstName || '');
+  const [newName, setNewName] = useState('');
   const navigate = useNavigate();
 
   //fonction de redirection si pas de User
@@ -54,6 +54,7 @@ function Profile() {
         <h1>Welcome back<br />{user.firstName} {user.lastName}!</h1>
         {isEditing ? (
           <form onSubmit={handleSubmit} className="edit-form">
+            <h2>Edit user info</h2>
             <div className="form-group">
             <label htmlFor="newName">User name:</label>
             <input
@@ -73,8 +74,8 @@ function Profile() {
               <label htmlFor="lastName">Last Name:</label>
               <p id="lastName" className="form-control">{user.lastName}</p>
             </div>
-            <button type="submit">Save</button>
-            <button type="button" onClick={handleCancel}>Cancel</button>
+            <button type="submit" className='form-btn'>Save</button>
+            <button type="button" onClick={handleCancel} className='form-btn'>Cancel</button>
           </form>
         ) : (
           <Button text="Edit Name" className="edit-button" onClick={handleEditClick} />
