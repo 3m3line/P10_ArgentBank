@@ -46,6 +46,12 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+export const RESET_ERROR = 'RESET_ERROR';
+
+export const resetError = () => ({
+  type: RESET_ERROR,
+});
+
 export const logout = () => {
   sessionStorage.removeItem('authToken');
   window.location.href = '/';
