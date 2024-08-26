@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountCard from '../components/AccountCard';
 import Button from '../components/Button';
 import { updateUser } from '../redux/actions/updateUserActions';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Profile() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(user?.firstName || '');
+  const navigate = useNavigate();
+
+  //fonction de redirection si pas de User
+  useEffect(() => {
+    if (!user) {
+      const timer = setTimeout(() => {
+        navigate('/login');
+      }, 5000); // 5000ms = 5s
+
+      // Efface timer si user devient disponible
+      return () => clearTimeout(timer);
+    }
+  }, [user, history]);
 
   if (!user) {
-    return <p>Loading...</p>;
+    return <p>No user is logged in, redirect to Sign In page...</p>;
   }
 
   const handleEditClick = () => {
