@@ -23,26 +23,26 @@ export const login = (email, password) => async (dispatch) => {
 
     console.log('Response:', response);
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Received data:', data);
-
-      const token = data.body.token;
-      sessionStorage.setItem('authToken', token);
-      
-      dispatch(loginSuccess(token));
-
-    }
-    else {
+    if (!response.ok) {
+      let errorMessage = 'Login failed';
       const errorData = await response.json();
-      console.log('error:', erreur);
-      dispatch(loginFailure(errorData.message || 'Login failed'));
-    }
-  } catch (error) {
-    console.error('Network error:', error);
+      errorMessage = errorData.message || errorMessage;
 
-    // Dispatch failure action
-    dispatch(loginFailure(error.message));
+      dispatch(loginFailure(errorMessage));
+      return; // sort de la fonction comme le résultat de l'erreur est géré
+    }
+
+    // Si réponse OK, s'occupe du token
+    const data = await response.json();
+    const token = data.body.token;
+    sessionStorage.setItem('authToken', token);
+    
+    dispatch(loginSuccess(token));
+
+  } catch (error) {
+    // Pour les erreurs de fetch ou de réseau
+    console.error('Network error:', error);
+    dispatch(loginFailure('Network error: ' + error.message));
   }
 };
 

@@ -72,6 +72,7 @@ const FormSignIn = () => {
         />
         <label htmlFor="remember-me">Remember me</label>
       </div>
+      {error && <div className="error-message">{error}</div>}
       <Button 
         text="Sign In" 
         className="sign-in-button" 
