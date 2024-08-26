@@ -229,6 +229,10 @@ body, #root {
   background-color: white;
 }
 
+#newName:focus{
+  outline:2px solid #00bc77;
+}
+
 .form-control{
   background: #b3b3b3;
   color: #757575;

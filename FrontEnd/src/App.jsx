@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 
 import Navbar from './containers/Navbar';
 import Footer from './containers/Footer';
+import PageTitle from './components/pageTitle';
 
 const App = () => {
   useAutoLogout();
@@ -16,9 +17,33 @@ const App = () => {
       <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+      <Route
+          path="/"
+          element={
+            <>
+              <PageTitle title="ArgentBank - home" />
+              <Home />
+            </>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <>
+              <PageTitle title="ArgentBank -Log In" />
+              <Login />
+            </>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <>
+              <PageTitle title="ArgentBank - Profile" />
+              <Profile />
+            </>
+          }
+        />
       </Routes>
       <Footer /> 
     </Router>

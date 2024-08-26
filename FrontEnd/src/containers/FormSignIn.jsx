@@ -9,7 +9,7 @@ import { fetchUser } from '../redux/actions/userInfoActions';
 const FormSignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, loading, error } = useSelector((state) => state.auth);
+  const { token, error } = useSelector((state) => state.auth);
 
   // Définir l'état initial des champs du formulaire
   const [formData, setFormData] = useState({
@@ -17,6 +17,18 @@ const FormSignIn = () => {
     password: '',
     rememberMe: false,
   });
+
+  //récupération email si stocké
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('rememberedEmail');
+    if (storedEmail) {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        email: storedEmail,
+        rememberMe: true, // On suppose que si un e-mail est stocké, la case "Remember me" est activée
+      }));
+    }
+  }, []);
 
   // Fonction pour gérer les changements dans les champs
   const handleChange = (e) => {
@@ -31,8 +43,15 @@ const FormSignIn = () => {
   const handleSignIn = (e) => {
     e.preventDefault();
     console.log('Form Data Submitted:', formData);
-    const { email, password } = formData;
+    const { email, password, rememberMe } = formData;
     dispatch(login(email, password));
+
+    // Si "Remember me" est activé, stocker l'e-mail sinon supp
+    if (rememberMe) {
+      localStorage.setItem('rememberedEmail', email);
+    } else {
+      localStorage.removeItem('rememberedEmail');
+    }
   };
 
   //si la connexion est un succès
