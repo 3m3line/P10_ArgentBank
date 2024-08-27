@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from './redux/actions/authActions';
 import { useEffect } from 'react';
 
-// Durée d'inactivité en millisecondes (1 minute)
+// Durée d'inactivité en millisecondes 
 const INACTIVITY_TIME_LIMIT = 5 * 60 * 1000;
 
 const useAutoLogout = () => {
