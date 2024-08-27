@@ -72,7 +72,7 @@ paths:
       tags:
         - Transaction Module
       summary: Get transaction details
-      description: Retrieve the details of a specific transaction (type, category, notes).
+      description: Retrieve the details of a specific transaction (category, notes).
       parameters:
         - in: path
           name: accountId
@@ -100,52 +100,14 @@ paths:
         "500":
           description: Internal Server Error
 
-  /accounts/{accountId}/transactions/{transactionId}/details:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Add transaction details
-      description: Add additional details (category, note) to a specific transaction.
-      parameters:
-        - in: path
-          name: accountId
-          required: true
-          type: string
-          description: The ID of the account
-        - in: path
-          name: transactionId
-          required: true
-          type: string
-          description: The ID of the transaction
-        - in: body
-          name: body
-          description: Details to add
-          required: true
-          schema:
-            $ref: "#/definitions/TransactionDetails"
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: Transaction details added successfully
-        "400":
-          description: Invalid Fields
-        "401":
-          description: Unauthorized - Token invalid or missing
-        "404":
-          description: Transaction not found
-        "500":
-          description: Internal Server Error
-
+  /accounts/{accountId}/transactions/{transactionId}:
     put:
       security:
         - Bearer: []
       tags:
         - Transaction Module
       summary: Modify transaction details
-      description: Modify existing details (category, note) of a specific transaction.
+      description: Modify details (category, note) of a specific transaction.
       parameters:
         - in: path
           name: accountId
@@ -168,44 +130,8 @@ paths:
       responses:
         "200":
           description: Transaction details modified successfully
-        "400":
-          description: Invalid Fields
-        "401":
-          description: Unauthorized - Token invalid or missing
-        "404":
-          description: Transaction not found
-        "500":
-          description: Internal Server Error
-
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Delete transaction details
-      description: Delete specific details (category, note) of a specific transaction.
-      parameters:
-        - in: path
-          name: accountId
-          required: true
-          type: string
-          description: The ID of the account
-        - in: path
-          name: transactionId
-          required: true
-          type: string
-          description: The ID of the transaction
-        - in: body
-          name: body
-          description: Details to delete
-          required: true
           schema:
-            $ref: "#/definitions/TransactionDetails"
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: Transaction details deleted successfully
+            $ref: "#/definitions/Transaction"
         "400":
           description: Invalid Fields
         "401":
@@ -248,6 +174,12 @@ definitions:
         type: string
       description:
         type: string
+      category:
+        type: string
+      note:
+        type: string
+      balance:
+        type: number
 
   TransactionDetails:
     type: object
