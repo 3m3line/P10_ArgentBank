@@ -52,11 +52,20 @@ export const resetError = () => ({
   type: RESET_ERROR,
 });
 
-export const logout = () => {
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+
+export const logoutRequest = () => ({
+  type: LOGOUT_REQUEST,
+});
+
+export const logout = (callback) => (dispatch) => {
+  dispatch(logoutRequest()); // Déclenche l'état de chargement
   sessionStorage.removeItem('authToken');
-  window.location.href = '/';
-  return {
-    type: LOGOUT,
-  };
-};
   
+  setTimeout(() => {
+    dispatch({
+      type: LOGOUT,
+    });
+    if (callback) callback(); // Appelle le callback pour la redirection
+  }, 1000); // Délai pour montrer le chargement
+};

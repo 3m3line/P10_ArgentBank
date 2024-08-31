@@ -1,13 +1,19 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import { logout } from '../redux/actions/authActions'
+import { logout} from '../redux/actions/authActions'
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+  const { user, logoutLoading } = useSelector((state) => ({
+    user: state.auth.user,
+    logoutLoading: state.auth.logoutLoading,
+  }));
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout(() => {
+      navigate('/');
+    }));
   };
     return (
       <nav className="main-nav">
@@ -26,7 +32,13 @@ const Navbar = () => {
               <i className="fa fa-user-circle"></i> {user.userName}
             </NavLink>
             <NavLink to="/" className="main-nav-item" onClick={handleLogout}>
-              <i className="fa fa-sign-out"></i> Sign Out
+              {logoutLoading ? (
+                <i className="fa fa-spinner fa-spin"></i> // Icône de chargement
+              ) : (
+                <>
+                  <i className="fa fa-sign-out"></i> Sign Out
+                </>
+              )}
             </NavLink>
           </>
         ) : (

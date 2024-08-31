@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, RESET_ERROR, LOGOUT } from '../actions/authActions';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, RESET_ERROR, LOGOUT, LOGOUT_REQUEST } from '../actions/authActions';
 import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE } from '../actions/userInfoActions';
 import { UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE } from '../actions/updateUserActions';
 
@@ -6,6 +6,7 @@ const initialState = {
   token: null,
   user: null,
   loading: false,
+  logoutLoading: false,
   error: null,
 };
 
@@ -29,7 +30,9 @@ const authReducer = (state = initialState, action) => {
     case UPDATE_USER_FAILURE:
       return { ...state, loading: false, error: action.payload };
     case LOGOUT:
-      return { ...state, user: null, token: null };
+      return { ...state, user: null, token: null, logoutLoading: false };
+    case LOGOUT_REQUEST:
+      return { ...state, logoutLoading: true };
     case RESET_ERROR:
       return { ...state, error: null };
     default:
